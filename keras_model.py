@@ -6,4 +6,4 @@ def model(file):
     img = cv2.imread(file)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     text=pytesseract.image_to_string(img)
-    return text[:-1]
+    return text[: -1]
