@@ -5,42 +5,42 @@ import time
 import random
 import sys
 #координаты области получены методом научного тыка
-left_up=430
-right_down=225
-cords=(424,1418,100,100)
-x=424
-y=1418
-width=500
-height=500
+left_up = 430
+right_down = 225
+cords = (424, 1418, 100, 100)
+x = 424
+y = 1418
+width = 500
+height = 500
 
 
-#имитация лкм
+#imitiation lmb 
 def leftClick():
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
     time.sleep(.1)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
     print('click')
 
 
-#перемещение мышки в позицию
+#set cursor mouse in pos
 def mouse_click():
-    win32api.SetCursorPos((859,388))
+    win32api.SetCursorPos((859, 388))
     leftClick()
 
 
-#получение координат поля ввода
+#get input field cord's
 def cursor_pose():
-    x,y=win32api.GetCursorPos()
-    return x,y
+    x, y=win32api.GetCursorPos()
+    return x, y
 
 
-# скриншот и его сохранение
+# screen&save
 def scren():
 
-    image = ImageGrab.grab(bbox=(left_up, right_down, left_up + 992, right_down + 109))
+    image = ImageGrab.grab(bbox = (left_up, right_down, left_up + 992, right_down + 109))
     image.save('123.png')
 
-#VK словарь
+#VK codes
 VK_CODE = {'backspace':0x08,
            ' ':0x20,
            '\n':0x20,
@@ -219,7 +219,7 @@ VK_CODE = {'backspace':0x08,
            '`':0xC0}
 
 
-rnd_seq=(0.02,0.035,0.03,0.04,0.1)
+rnd_seq=(0.02, 0.035, 0.03, 0.04, 0.1)
 def press(stroka):
     '''
     one press, one release.
@@ -227,18 +227,18 @@ def press(stroka):
     '''
     for i in stroka:
         cords_yellow = (447, 92)
-        image = ImageGrab.grab(bbox=(left_up, right_down, left_up + 992, right_down + 109))
+        image = ImageGrab.grab(bbox = (left_up, right_down, left_up + 992, right_down + 109))
         image.save('yellow.png')
         if (image.getpixel(cords_yellow)) == (223, 168, 42):
             sys.exit()
 
-        win32api.keybd_event(VK_CODE[i], 0,0,0)
+        win32api.keybd_event(VK_CODE[i], 0, 0, 0)
         time.sleep(random.choice(rnd_seq))
-        win32api.keybd_event(VK_CODE[i],0 ,win32con.KEYEVENTF_KEYUP ,0)
+        win32api.keybd_event(VK_CODE[i], 0, win32con.KEYEVENTF_KEYUP, 0)
 
 def play():
-    a=0
-    for a in range(0,6):
+    a = 0
+    for a in range(0, 6):
         scren()
         stroka=model('123.png')
         mouse_click()
